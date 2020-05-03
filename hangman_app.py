@@ -4,23 +4,21 @@
 """
 from random import randint
 import math
-wordList = [
-"euouae","exodus","faking","fishhook","fixable","fjord","flapjack","flopping","fluffiness",
-"flyby","foxglove","frazzled","frizzled","fuchsia","funny","gabby","galaxy","galvanize",
-"gazebo","giaour","gizmo","glowworm","glyph","gnarly","gnostic","gossip","grogginess",
-"haiku","haphazard","hyphen","iatrogenic","icebox","injury","ivory","ivy","jackpot"
-    ]
-wordListLength = len(wordList)
-
 
 def generate_random_word():
-   """ read a list of words from a file and pick a random one to return """
-   return "unimplemented"
+    wordList = [
+        "euouae","exodus","faking","fishhook","fixable","fjord","flapjack","flopping","fluffiness",
+        "flyby","foxglove","frazzled","frizzled","fuchsia","funny","gabby","galaxy","galvanize",
+        "gazebo","giaour","gizmo","glowworm","glyph","gnarly","gnostic","gossip","grogginess",
+        "haiku","haphazard","hyphen","iatrogenic","icebox","injury","ivory","ivy","jackpot"
+    ]
+    wordListLength = len(wordList)
+    return wordList[randint(0,wordListLength-1)]
 
 def play_hangman():
     while True:
         gameList = []
-        word = wordList[randint(0,wordListLength-1)]
+        word = generate_random_word()
         wordLength = len(word)
         wordinList = list(word)
         choicesLeft = wordLength

@@ -11,7 +11,12 @@ global state
 state = {'guesses':[],
          'word':"interesting",
 		 'word_so_far':"-----------",
-		 'done':False}
+		 'done':False
+		 }
+completeCheck = []
+for i in state['word']:
+	completeCheck.append('-')
+
 
 @app.route('/')
 @app.route('/main')
@@ -34,23 +39,25 @@ def hangman():
 
 	elif request.method == 'POST':
 		letter = request.form['guess']
-		
-		else if letter in state['word']:
-			if state['guesses']==state['word']:
-				print('Congrats you guessed the word!')
-				else print('You guessed a letter!)
-			
-		# and generate a response to guess again
-		# else check if letter is in word
-		# then see if the word is complete
-		# if letter not in word, then tell them
+		if letter in state['guesses']:
+			print("You already guessed that letter. Try again.")
+		elif letter in state['word']:
+			for i in state['word']:
+				if i == letter:
+					position = state['word'].index(letter)
+					completeCheck[position] = letter
+					tempCheck = "".join(completeCheck)
+					state['word_so_far'][position] = letter
+					if tempCheck == state['word']:
+						print("you win")
 		state['guesses'] += [letter]
 		return render_template('play.html',state=state)
 
-@app.route('/minsung')
+@app.route('/minsung-page')
 def minsung():
-	return render_template("minsung.html")
+	return render_template('minsung.html')
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
+    app.debug = True
     app.run('0.0.0.0',port=3000)
+
